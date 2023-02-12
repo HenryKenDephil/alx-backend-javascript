@@ -1,37 +1,46 @@
 interface Student {
-    firstName: string;
-    lastName: string;
-    age: number;
-    location: string;
-};
+  firstName: string,
+  lastName: string,
+  age: Number,
+  location: string
+}
 
 const student1: Student = {
-    firstName: 'John',
-    lastName: 'Doe',
-    age: 20,
-    location: 'New York'
-};
+  firstName: "Kalkidan",
+  lastName: "Demes",
+  age: 25,
+  location: "Ethiopia"
+}
 
 const student2: Student = {
-    firstName: 'Bob',
-    lastName: 'Marley',
-    age: 22,
-    location: 'Jamaica'
-};
+  firstName: "Tester",
+  lastName: "unknown",
+  age: 30,
+  location: "Kenya"
+}
 
-const studentsList: Array<Student> = [student1, student2];
+const studentsList: Array<Student> = [ student1, student2 ];
 
-const table = document.createElement('table');
-const tbody = document.createElement('tbody');
+const body: HTMLBodyElement = document.getElementsByTagName("body")[0];
+const table: HTMLTableElement = document.createElement("table");
+const thead: HTMLTableSectionElement = document.createElement("thead");
+const tbody: HTMLTableSectionElement = document.createElement("tbody");
+const rowHead: HTMLTableRowElement = thead.insertRow(0);
+const cell1Head: HTMLTableCellElement = rowHead.insertCell(0);
+const cell2Head: HTMLTableCellElement = rowHead.insertCell(1);
+
+cell1Head.innerHTML = "firstName";
+cell2Head.innerHTML = "location";
+table.append(thead);
 
 studentsList.forEach((student) => {
-    const tr = document.createElement('tr');
-    tbody.appendChild(tr);
+  const row: HTMLTableRowElement = tbody.insertRow(0);
+  const cell1: HTMLTableCellElement = row.insertCell(0);
+  const cell2: HTMLTableCellElement = row.insertCell(1);
 
-    const tdFirstName = document.createElement('td');
-    const tdLocation = document.createElement('td');
-    tdFirstName.innerHTML = `${student.firstName}`;
-    tdLocation.innerHTML = `${student.location}`;
-    tr.appendChild(tdFirstName);
-    tr.appendChild(tdLocation);
+  cell1.innerHTML = student.firstName;
+  cell2.innerHTML = student.location;
 });
+
+table.append(tbody);
+body.append(table);
