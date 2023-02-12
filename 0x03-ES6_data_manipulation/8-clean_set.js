@@ -1,7 +1,11 @@
-export default function cleanSet(set, startString) {
-    if (typeof set !== 'object' || typeof startString !== 'string' || startString.length === 0) return '';
-  
-    const filteredList = [...set].filter((word) => word && word.startsWith(startString));
-  
-    return filteredList.map((word) => word.slice(startString.length)).join('-');
+const cleanSet = (set, startString) => {
+  if (startString === undefined || startString.length === 0) {
+    return '';
   }
+  return [...set]
+    .filter((parametro) => (parametro !== undefined ? parametro.startsWith(startString) : ''))
+    .map((parametro) => (parametro !== undefined ? parametro.slice(startString.length) : ''))
+    .join('-');
+};
+
+export default cleanSet;
