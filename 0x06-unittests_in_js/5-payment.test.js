@@ -1,29 +1,23 @@
-const { expect } = require("chai");
-const sinon = require('sinon');
-const { spy } = require('sinon');
+const {describe, it} = require("mocha");
+const sinon = require("sinon");
+const sendPaymentRequestToApi = require("./5-payment");
+const expect = require("chai").expect;
 
-const sendPaymentRequestToApi = require('./3-payment');
+describe("sendPaymentRequestToApi", function() {
+    beforeEach("Set up spy to use for each test", function() {
+	sinon.spy(console, "log");
+    });
+    afterEach("restore spy after each test", function() {
+	console.log.restore();
+    });
+    it("check that console.log is called with the right arg", function() {
+	sendPaymentRequestToApi(100, 20);
 
-describe('hooks', () => {
-  let consoleSpy;
+	expect(console.log.withArgs("The total is: 120").calledOnce).to.be.true;
+    });
+    it("check that console.log is called with the right arg", function() {
+	sendPaymentRequestToApi(10, 10);
 
-  beforeEach(() => {
-    consoleSpy = sinon.spy(console, 'log');
-  });
-
-  it('sendPaymentRequestToAPI', () => {
-    sendPaymentRequestToApi(100, 20);
-    expect(consoleSpy.calledWithExactly('The total is: 120')).to.equal(true);
-    expect(consoleSpy.calledOnce).to.equal(true);
-  });
-
-  it('sendPaymentRequestToAPI', () => {
-    sendPaymentRequestToApi(10, 10);
-    expect(consoleSpy.calledWithExactly('The total is: 20')).to.equal(true);
-    expect(consoleSpy.calledOnce).to.equal(true);
-  });
-
-  afterEach(() => {
-    consoleSpy.restore();
-  })
+	expect(console.log.withArgs("The total is: 20").calledOnce).to.be.true;
+    });
 });
